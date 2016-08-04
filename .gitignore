@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.suo
+/Release/1_4_0/HAPExplorer/obj/Debug
+/Release/1_4_0/HAPExplorer/obj/Release
+/Release/1_4_0/Html2Rss/obj/Debug
+/Release/1_4_0/Html2Txt/obj/Debug
+/Release/1_4_0/GetDocLinks/obj/Debug
+/Release/1_4_0/Html2Xml/obj/Debug
+/Release/1_4_0/HtmlAgilityPack/obj/Debug

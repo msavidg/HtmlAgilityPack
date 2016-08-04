@@ -250,6 +250,19 @@ namespace HtmlAgilityPack
 
         /// <summary>
         /// Gets a valid XML name.
+        /// 
+        /// http://www.w3schools.com/xml/xml_elements.asp
+        /// 
+        /// XML elements must follow these naming rules:
+        /// 
+        /// Element names are case-sensitive
+        /// Element names must start with a letter or underscore
+        /// Element names cannot start with the letters xml(or XML, or Xml, etc)
+        /// Element names can contain letters, digits, hyphens, underscores, and periods
+        /// Element names cannot contain spaces
+        /// 
+        /// Any name can be used, no words are reserved(except xml).
+        /// 
         /// </summary>
         /// <param name="name">Any text.</param>
         /// <returns>A string that is a valid XML name.</returns>
@@ -262,8 +275,8 @@ namespace HtmlAgilityPack
                 // names are lcase
                 // note: we are very limited here, too much?
                 if (((name[i] >= 'a') && (name[i] <= 'z')) ||
+                    ((name[i] >= 'A') && (name[i] <= 'Z')) ||
                     ((name[i] >= '0') && (name[i] <= '9')) ||
-                    //					(name[i]==':') || (name[i]=='_') || (name[i]=='-') || (name[i]=='.')) // these are bads in fact
                     (name[i] == '_') || (name[i] == '-') || (name[i] == '.'))
                 {
                     xmlname += name[i];
@@ -281,6 +294,8 @@ namespace HtmlAgilityPack
             }
             if (nameisok)
             {
+                if (xmlname.Length > 3 && xmlname.ToUpper().StartsWith("XML", StringComparison.CurrentCultureIgnoreCase))
+                    xmlname = xmlname.Replace("XML", "_");
                 return xmlname;
             }
             return "_" + xmlname;
@@ -636,9 +651,9 @@ namespace HtmlAgilityPack
         /// <param name="path">The complete file path to be read. May not be null.</param>
         public void Load(string path)
         {
-            if (path == null)            
+            if (path == null)
                 throw new ArgumentNullException("path");
-            
+
             StreamReader sr = new StreamReader(path, OptionDefaultStreamEncoding);
             Load(sr);
             sr.Close();
@@ -653,7 +668,7 @@ namespace HtmlAgilityPack
         {
             if (path == null)
                 throw new ArgumentNullException("path");
-            
+
             StreamReader sr = new StreamReader(path, detectEncodingFromByteOrderMarks);
             Load(sr);
             sr.Close();
